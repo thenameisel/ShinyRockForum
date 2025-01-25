@@ -1,3 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ShinyRockForum.Data;
 namespace ShinyRockForum
 {
     public class Program
@@ -5,6 +8,8 @@ namespace ShinyRockForum
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<ShinyRockForumContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ShinyRockForumContext") ?? throw new InvalidOperationException("Connection string 'ShinyRockForumContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

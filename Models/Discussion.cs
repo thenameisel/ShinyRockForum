@@ -16,7 +16,7 @@ namespace ShinyRockForum.Models
         public string Content { get; set; } = string.Empty;
 
         //ImageFilename
-        public string ImageFilename { get; set; } = string.Empty;
+        public string? ImageFilename { get; set; } = string.Empty;
 
         //CreateDate
         public DateTime CreateDate { get; set; } = DateTime.Now;
