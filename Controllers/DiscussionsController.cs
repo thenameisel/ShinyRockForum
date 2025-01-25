@@ -19,11 +19,11 @@ namespace ShinyRockForum.Controllers
             _context = context;
         }
 
-        // GET: Discussions
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Discussion.ToListAsync());
-        }
+        // GET: Discussions - Removing, do not need discussion index and Home
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Discussion.OrderByDescending(d => d.CreateDate).ToListAsync());
+        //}
 
         // GET: Discussions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -62,7 +62,7 @@ namespace ShinyRockForum.Controllers
 
                 _context.Add(discussion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(discussion);
         }

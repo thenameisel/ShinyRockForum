@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<p class="text-center">Popular today!</p>
+<p class="text-center">Recent Posts!</p>
 
 @{
         foreach (var discussion in Model)
@@ -13,6 +13,7 @@
             <div class="card-header">@discussion.Title</div>
             <div class="card-body text-secondary">
                 <p class="card-text">Posted at @discussion.CreateDate by SomeUserNameHere</p>
+                
                 <p class="card-text">@discussion.Content</p>
             </div>
         </div>

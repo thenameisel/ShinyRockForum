@@ -17,7 +17,11 @@ namespace ShinyRockForum.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Discussion> discussions = await _context.Discussion.ToListAsync();
+            List<Discussion> discussions = await _context.Discussion
+                .OrderByDescending(d => d.CreateDate)
+                .Take(20)
+                .ToListAsync();
+
             return View(discussions);
         }
 
