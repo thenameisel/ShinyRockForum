@@ -10,11 +10,14 @@
         foreach (var discussion in Model)
     {
         <div class="card border-secondary mb-3" style="m">
-            <div class="card-header">@discussion.Title</div>
+            <div class="card-header"><a class ="nav-link text-dark" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
+        </div>
             <div class="card-body text-secondary">
                 <p class="card-text">Posted at @discussion.CreateDate by SomeUserNameHere</p>
                 
                 <p class="card-text">@discussion.Content</p>
+
+                <p class="card-text">Comments: @discussion.Comments.Count</p>
             </div>
         </div>
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShinyRockForum.Data;
 
@@ -11,9 +12,11 @@ using ShinyRockForum.Data;
 namespace ShinyRockForum.Migrations
 {
     [DbContext(typeof(ShinyRockForumContext))]
-    partial class ShinyRockForumContextModelSnapshot : ModelSnapshot
+    [Migration("20250126204113_addedCommentsICollection")]
+    partial class addedCommentsICollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,13 +79,11 @@ namespace ShinyRockForum.Migrations
 
             modelBuilder.Entity("ShinyRockForum.Models.Comment", b =>
                 {
-                    b.HasOne("ShinyRockForum.Models.Discussion", "Discussion")
+                    b.HasOne("ShinyRockForum.Models.Discussion", null)
                         .WithMany("Comments")
                         .HasForeignKey("DiscussionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Discussion");
                 });
 
             modelBuilder.Entity("ShinyRockForum.Models.Discussion", b =>

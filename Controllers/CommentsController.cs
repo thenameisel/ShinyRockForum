@@ -26,22 +26,23 @@ namespace ShinyRockForum.Controllers
         }
 
         // GET: Comments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //removing details, its not needed
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var comment = await _context.Comment
-                .FirstOrDefaultAsync(m => m.CommentId == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
+        //    var comment = await _context.Comment
+        //        .FirstOrDefaultAsync(m => m.CommentId == id);
+        //    if (comment == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(comment);
-        }
+        //    return View(comment);
+        //}
 
         // GET: Comments/Create
         public IActionResult Create()

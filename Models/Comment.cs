@@ -12,5 +12,8 @@
 
         //int DiscussionId(foreign key)
         public int DiscussionId { get; set; }
+
+        // Navigation property back to Discussion
+        public Discussion? Discussion { get; set; }
     }
 }

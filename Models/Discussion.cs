@@ -20,5 +20,8 @@ namespace ShinyRockForum.Models
 
         //CreateDate
         public DateTime CreateDate { get; set; } = DateTime.Now;
+        
+        //navigation property
+        public ICollection<Comment>? Comments { get; set; } //Nullable
     }
 }
