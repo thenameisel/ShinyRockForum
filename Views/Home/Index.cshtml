@@ -9,15 +9,25 @@
 @{
         foreach (var discussion in Model)
     {
-        <div class="card border-secondary mb-3" style="m">
-            <div class="card-header"><a class ="nav-link text-dark" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
+        string imageUrl = Url.Content("/photos/" + discussion.ImageFilename);
+
+        <div class="card border-secondary mb-3 rounded-0" style="m">
+            <div class="card-header"><a class ="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
         </div>
             <div class="card-body text-secondary">
-                <p class="card-text">Posted at @discussion.CreateDate by SomeUserNameHere</p>
+                @if (!string.IsNullOrEmpty(discussion.ImageFilename))
+                {
+                    <div class="col-md-3">
+                        <img src="@imageUrl" class="img-fluid rounded-start" alt="Image">
+                    </div>
+                }
+                <div class="col-md-9">
+                    <p class="card-text">Posted at @discussion.CreateDate by SomeUserNameHere</p>
                 
-                <p class="card-text">@discussion.Content</p>
+                    <p class="card-text">@discussion.Content</p>
 
-                <p class="card-text">Comments: @discussion.Comments.Count</p>
+                    <p class="card-text">Comments: @discussion.Comments.Count</p>
+                </div>
             </div>
         </div>
     }

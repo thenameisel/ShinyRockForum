@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShinyRockForum.Models
 {
@@ -16,7 +17,12 @@ namespace ShinyRockForum.Models
         public string Content { get; set; } = string.Empty;
 
         //ImageFilename
-        public string? ImageFilename { get; set; } = string.Empty; //Nullable
+        public string? ImageFilename { get; set; } //Nullable
+
+        //File storage
+        [NotMapped]
+        [Display(Name = "Photograph")]
+        public IFormFile? ImageFile { get; set; }
 
         //CreateDate
         public DateTime CreateDate { get; set; } = DateTime.Now;
