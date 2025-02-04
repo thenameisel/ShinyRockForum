@@ -12,22 +12,25 @@
         string imageUrl = Url.Content("/photos/" + discussion.ImageFilename);
 
         <div class="card border-secondary mb-3 rounded-0" style="m">
-            <div class="card-header"><a class ="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
-        </div>
-            <div class="card-body text-secondary">
+            <div class="card-header">
+                <a class ="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
+            </div>
+            <div class="card-body text-secondary row g-0">
+
+                <p class="card-text">SomeUserNameHere : @discussion.CreateDate.ToString("MMM dd yyyy")</p>
+                    
                 @if (!string.IsNullOrEmpty(discussion.ImageFilename))
                 {
-                    <div class="col-md-3">
-                        <img src="@imageUrl" class="img-fluid rounded-start" alt="Image">
+                    <div class="col-md-3 p-2">
+                        <img src="@imageUrl" class="img-fluid " alt="Image" />
                     </div>
                 }
-                <div class="col-md-9">
-                    <p class="card-text">Posted at @discussion.CreateDate by SomeUserNameHere</p>
-                
-                    <p class="card-text">@discussion.Content</p>
 
-                    <p class="card-text">Comments: @discussion.Comments.Count</p>
+                <div class ="col-md-9 mb-2">
+                    <p class="card-text">@discussion.Content</p>
                 </div>
+                
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">Comments: @discussion.Comments.Count</a>
             </div>
         </div>
     }
