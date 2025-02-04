@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//Created by El Wisman, 2025
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShinyRockForum.Data;
 namespace ShinyRockForum
