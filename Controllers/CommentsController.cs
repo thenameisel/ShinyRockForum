@@ -27,7 +27,6 @@ namespace ShinyRockForum.Controllers
         public IActionResult Create(int? id)
         {
             
-
             if (id == null)
             {
                 return NotFound();
@@ -46,7 +45,6 @@ namespace ShinyRockForum.Controllers
         public async Task<IActionResult> Create([Bind("CommentId,Content,DiscussionId")] Comment comment)
         {
             
-
             if (ModelState.IsValid)
             {
                 comment.CreateDate = DateTime.Now;

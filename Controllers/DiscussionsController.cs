@@ -21,10 +21,7 @@ namespace ShinyRockForum.Controllers
             _context = context;
         }
 
-        // GET: Discussions - Removing, do not need discussion index and Home
-        //Removed delete and edit methods
-
-       
+        //Removed delete, discussions, index and edit methods
 
         // GET: Discussions/Create
         public IActionResult Create()
