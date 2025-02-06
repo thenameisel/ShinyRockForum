@@ -7,13 +7,13 @@
 <p class="text-center">Recent Posts!</p>
 
 @{
-        foreach (var discussion in Model)
+    foreach (var discussion in Model)
     {
-        string imageUrl = Url.Content("/photos/" + discussion.ImageFilename);
+        string imageUrl = Url.Content($"/photos/{discussion.ImageFilename}");
 
         <div class="card border-secondary mb-3 rounded-0" style="m">
             <div class="card-header">
-                <a class ="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
+                <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
             </div>
             <div class="card-body text-secondary row g-0">
 

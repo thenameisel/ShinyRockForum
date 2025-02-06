@@ -9,19 +9,17 @@
 <div class="card border-secondary mb-1 rounded-0">
     <input type="hidden" asp-for="DiscussionId"/>
     <div class="card-header">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@Model.DiscussionId">@Model.Title</a>
+        <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@Model.DiscussionId">@Model.Title</a>
     </div>
-    <div class="card-body text-secondary row g-0">
+    <div class="card-body text-secondary">
         <p class="card-text">SomeUserNameHere : @Model.CreateDate.ToString("MMM dd yyyy")</p>
-
-        @if (!string.IsNullOrEmpty(Model.ImageFilename))
-        {
-            <div class="col-md-3 p-2">
-                <img src="@imageUrl" class="img-fluid " alt="Image" />
-            </div>
-        }
-        <div class="col-md-9 mb-2">
+        
+        <div class="mb-2">
             <p class="card-text">@Model.Content</p>
+        </div>
+
+        <div>
+            <img src="@imageUrl" class="img-fluid " alt="Image" />
         </div>
 
         <p class="card-text">Comments: @Model.Comments.Count</p>
@@ -40,7 +38,7 @@
         </div>
     }
 }
-<
+
 <div>
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
 </div>

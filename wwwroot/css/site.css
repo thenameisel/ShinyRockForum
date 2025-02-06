@@ -18,7 +18,10 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+.forum-background {
+    background-color: rgb(213,172,134);
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +31,15 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.navbar-background {
+    
+    background: url('/imgs/tumbledrocksbanner.png') no-repeat center center;
+    background-size: cover;
+}
+
+
+.navbar-white-shadow {
+    text-shadow: 2px 2px 6px rgba(213,172,134, 1), -2px -2px 6px rgba(255, 255, 255, 1);
 }
