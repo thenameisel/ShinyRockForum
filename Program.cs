@@ -1,8 +1,9 @@
-﻿//Created by El Wisman, 2025
+//Created by El Wisman, 2025
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShinyRockForum.Data;
+using Microsoft.AspNetCore.Identity;
 namespace ShinyRockForum
 {
     public class Program
@@ -12,6 +13,8 @@ namespace ShinyRockForum
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<ShinyRockForumContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShinyRockForumContext") ?? throw new InvalidOperationException("Connection string 'ShinyRockForumContext' not found.")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ShinyRockForumContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -36,6 +39,8 @@ namespace ShinyRockForum
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            app.MapRazorPages().WithStaticAssets();
 
             app.Run();
         }

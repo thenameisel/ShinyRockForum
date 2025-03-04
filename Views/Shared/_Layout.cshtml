@@ -12,9 +12,8 @@
 <body class="forum-background">
     <header>
         <div class="navbar-background">
-            <nav class="d-flex justify-content-center">
-                <button type="button" class="btn btn-light btn-sm">Log in</button>
-                <button type="button" class="btn btn-light btn-sm">Sign up</button>
+            <nav>
+                <partial name="_LoginPartial" />
             </nav>
             <nav class ="text-center">
                 <a class="navbar-brand fs-1 navbar-white-shadow fw-bolder" asp-area="" asp-controller="Home" asp-action="Index">Shiny Rock Forum</a>
@@ -37,7 +36,14 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Discussions" asp-action="Create">Post Something!</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold">|</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Discussions" asp-action="Index">Your Disscussions</a>
+                            </li>
                         </ul>
+                        
                     </div>
                 </div>
             </nav>

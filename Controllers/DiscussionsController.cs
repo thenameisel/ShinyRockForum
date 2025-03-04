@@ -23,6 +23,11 @@ namespace ShinyRockForum.Controllers
 
         //Removed delete, discussions, index and edit methods
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Discussions/Create
         public IActionResult Create()
         {

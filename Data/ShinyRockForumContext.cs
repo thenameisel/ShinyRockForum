@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ShinyRockForum.Models;
+using ShinyRockForum.Data;
 
 namespace ShinyRockForum.Data
 {
-    public class ShinyRockForumContext : DbContext
+    public class ShinyRockForumContext : IdentityDbContext<ApplicationUser>
     {
         public ShinyRockForumContext (DbContextOptions<ShinyRockForumContext> options)
             : base(options)
