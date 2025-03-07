@@ -14,7 +14,7 @@ namespace ShinyRockForum
             builder.Services.AddDbContext<ShinyRockForumContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShinyRockForumContext") ?? throw new InvalidOperationException("Connection string 'ShinyRockForumContext' not found.")));
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ShinyRockForumContext>();
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ShinyRockForumContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

@@ -8,20 +8,21 @@ namespace ShinyRockForum.Data
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required(ErrorMessage = "A Name is required.")]
+        [Required(ErrorMessage = "A name is required.")]
         [PersonalData]
         public string Name { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "A location is required.")]
         [PersonalData]
         public string Location { get; set; } = string.Empty;
 
         [PersonalData]
-        public string Bio { get; set; } = string.Empty;
+        public string? Bio { get; set; }//Nullable
 
         [PersonalData]
-        public string ImageFilename { get; set; } = string.Empty;
+        public string? ImageFilename { get; set; }//Nullable
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     }
 }

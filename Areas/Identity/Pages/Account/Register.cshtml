@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
@@ -32,19 +32,24 @@
             @*Begin custom application fields*@
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.Name" class="form-control" autocomplete="username" aria-required="true" placeholder="RockFan123" />
-                <label asp-for="Input.Name">Display Name</label>
+                <input asp-for="Input.Name" class="form-control" aria-required="true" placeholder="RockFan123" />
+                <label asp-for="Input.Name"></label>
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Location" class="form-control" autocomplete="off" aria-required="false" placeholder="" />
-                <label asp-for="Input.Location">Location</label>
-                <span asp-validation-for="Input.Location" class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="Input.ImageFile" class="form-label"></label>
+                <input type="file" asp-for="Input.ImageFile" class="form-control" />
+                <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Bio" class="form-control" autocomplete="off" aria-required="false" placeholder="Tell us about you..." />
-                <label asp-for="Input.Bio">Bio</label>
-                <span asp-validation-for="Input.Bio" class="text-danger"></span>
+                <input asp-for="Input.Location" class="form-control" aria-required="true" />
+                <label asp-for="Input.Location" class="form-label"></label>
+                <span asp-validation-for="Input.Location" class="text-danger"></span>
+                
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="Input.Bio" class="form-control" row="3"></textarea>
+                <label asp-for="Input.Bio" class="form-label"></label>
             </div>
 
             @*End custom application fields*@

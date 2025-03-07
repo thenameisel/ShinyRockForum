@@ -43,3 +43,24 @@ body {
 .navbar-white-shadow {
     text-shadow: 2px 2px 6px rgba(213,172,134, 1), -2px -2px 6px rgba(255, 255, 255, 1);
 }
+
+/* Custom styles for nav-pills */
+.nav-pills .nav-link.active {
+    background-color: white !important; /* White background */
+    color: black !important; /* Black text */
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 1);
+}
+
+/* Remove rounding from nav-pills */
+.nav-pills .nav-link {
+    border-radius: 0 !important;
+    color: black !important;
+}
+
+/* Add spacing between nav-items */
+.nav-pills .nav-item {
+    border-radius: 0 !important;
+    background-color: lightgray !important;
+    margin-right: 10px; /* Adjust as needed */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+}
