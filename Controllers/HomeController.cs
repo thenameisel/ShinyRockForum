@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using ShinyRockForum.Models;
 using ShinyRockForum.Data;
 

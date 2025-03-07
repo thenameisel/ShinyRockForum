@@ -29,5 +29,10 @@ namespace ShinyRockForum.Models
         
         //navigation property
         public ICollection<Comment>? Comments { get; set; } //Nullable
+
+        //creator forgein key
+        public string ApplicationUserId { get; set; }
+
+        
     }
 }

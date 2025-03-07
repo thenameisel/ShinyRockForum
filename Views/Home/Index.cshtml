@@ -1,4 +1,9 @@
 ﻿@model List<ShinyRockForum.Models.Discussion>
+@using Microsoft.AspNetCore.Identity
+@using ShinyRockForum.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 @{
     ViewData["Title"] = "Home Page";
@@ -9,6 +14,7 @@
 @{
     foreach (var discussion in Model)
     {
+        string userName = UserManager.FindByIdAsync(discussion.ApplicationUserId).Result.UserName;
         string imageUrl = Url.Content($"/photos/{discussion.ImageFilename}");
 
         <div class="card border-secondary mb-3 rounded-0" style="m">
@@ -17,7 +23,7 @@
             </div>
             <div class="card-body text-secondary row g-0">
 
-                <p class="card-text">SomeUserNameHere : @discussion.CreateDate.ToString("MMM dd yyyy")</p>
+                <p class="card-text">@userName : @discussion.CreateDate.ToString("MMM dd yyyy")</p>
                     
                 @if (!string.IsNullOrEmpty(discussion.ImageFilename))
                 {

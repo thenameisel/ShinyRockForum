@@ -3,11 +3,15 @@ using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using ShinyRockForum.Data;
 using System.ComponentModel.DataAnnotations.Schema;
+using ShinyRockForum.Models;
 
 namespace ShinyRockForum.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        //ApplicationUserId
+        public int ApplicationUserId { get; set; }
+
         [Required(ErrorMessage = "A name is required.")]
         [PersonalData]
         public string Name { get; set; } = string.Empty;
@@ -24,5 +28,11 @@ namespace ShinyRockForum.Data
 
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
+
+        //Navigation property for discussions
+        public ICollection<Discussion>? Discussions { get; set; }
+
+        //Navigation property for comments
+        public ICollection<Comment>? Comments { get; set; }
     }
 }

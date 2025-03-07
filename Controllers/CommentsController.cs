@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +12,18 @@ using ShinyRockForum.Models;
 
 namespace ShinyRockForum.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
+
+        
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ShinyRockForumContext _context;
 
-        public CommentsController(ShinyRockForumContext context)
+        public CommentsController(ShinyRockForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         //removing edit, comments and delete methods, they are not needed
@@ -48,6 +55,7 @@ namespace ShinyRockForum.Controllers
             if (ModelState.IsValid)
             {
                 comment.CreateDate = DateTime.Now;
+                comment.ApplicationUserId = _userManager.GetUserId(User);
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();

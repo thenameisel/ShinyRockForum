@@ -20,17 +20,17 @@
                 <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
-            @* Display Display Name *@
+            @* Change Display Name *@
             <div class="form-floating mb-3">
                 <input asp-for="@Model.Input.Name" class="form-control" placeholder="Your Display Name"." />
                 <label asp-for="@Model.Input.Name" class="form-label"></label>
             </div>
-            @* Display Location *@
+            @* Change Location *@
             <div class="form-floating mb-3">
                 <input asp-for="@Model.Input.Location" class="form-control" placeholder="Your Location" />
                 <label asp-for="@Model.Input.Location" class="form-label"></label>
                 </div>
-            @* Display Change Photo *@
+            @* Display and Change Photo *@
             @{
                 var user = await UserManager.GetUserAsync(Model.User);
                 string imageUrl = Url.Content("/profile_img/" + user.ImageFilename);
@@ -48,9 +48,9 @@
                 <input type="file" asp-for="@Model.Input.ImageFile" class="form-control" />
                 <span asp-validation-for="@Model.Input.ImageFile" class="text-danger"></span>
             </div>
-            @* Display Bio *@
+            @* Change Bio *@
             <div class="form-floating mb-3">
-                <textarea asp-for="@Model.Input.Bio" class="form-control" row="3"></textarea>
+                <textarea asp-for="@Model.Input.Bio" class="form-control" row="4"></textarea>
                 <label asp-for="@Model.Input.Bio" class="form-label"></label>
             </div>
             

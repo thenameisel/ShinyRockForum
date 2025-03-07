@@ -1,10 +1,14 @@
 ﻿@model ShinyRockForum.Models.Discussion
+@using Microsoft.AspNetCore.Identity
+@using ShinyRockForum.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Discussion";
     string imageUrl = Url.Content("/photos/" + @Model.ImageFilename);
+    string userName = UserManager.FindByIdAsync(Model.ApplicationUserId).Result.UserName;
 }
-
 
 <div class="card border-secondary mb-1 rounded-0">
     <input type="hidden" asp-for="DiscussionId"/>
@@ -12,15 +16,17 @@
         <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@Model.DiscussionId">@Model.Title</a>
     </div>
     <div class="card-body text-secondary">
-        <p class="card-text">SomeUserNameHere : @Model.CreateDate.ToString("MMM dd yyyy")</p>
-        
+        <p class="card-text">@userName : @Model.CreateDate.ToString("MMM dd yyyy")</p>
+
         <div class="mb-2">
             <p class="card-text">@Model.Content</p>
         </div>
-
-        <div>
-            <img src="@imageUrl" class="img-fluid " alt="Image" />
-        </div>
+        @if (!string.IsNullOrEmpty(Model.ImageFilename))
+        {
+            <div>
+                <img src="@imageUrl" class="img-fluid " alt="Image" />
+            </div>
+        }
 
         <p class="card-text">Comments: @Model.Comments.Count</p>
     
@@ -30,9 +36,10 @@
 @{
     foreach (var comment in Model.Comments)
     {
+        string userNameComment = UserManager.FindByIdAsync(comment.ApplicationUserId).Result.UserName;
         <div class="card border-secondary ms-4 mb-1 rounded-0">
             <div class="card-body text-secondary">
-                <p class="card-text">SomeUserNameHere : @comment.CreateDate.ToString("MMM dd yyyy")</p>
+                <p class="card-text">@userNameComment : @comment.CreateDate.ToString("MMM dd yyyy")</p>
                 <p class="card-text">@comment.Content</p>
             </div>
         </div>

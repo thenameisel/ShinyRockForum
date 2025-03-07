@@ -15,5 +15,8 @@
 
         // Navigation property back to Discussion
         public Discussion? Discussion { get; set; }
+
+        //creator forgein key
+        public string ApplicationUserId { get; set; }
     }
 }
