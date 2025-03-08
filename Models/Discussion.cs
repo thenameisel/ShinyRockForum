@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShinyRockForum.Data;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,9 +31,12 @@ namespace ShinyRockForum.Models
         //navigation property
         public ICollection<Comment>? Comments { get; set; } //Nullable
 
-        //creator forgein key
-        public string ApplicationUserId { get; set; }
+        // Foreign key for creator
+        public string ApplicationUserId { get; set; } = string.Empty;
 
-        
+        // Navigation property
+        public ApplicationUser? ApplicationUser { get; set; } // nullable!!!
+
+
     }
 }

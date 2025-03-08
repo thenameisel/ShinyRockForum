@@ -4,12 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShinyRockForum.Data;
 using Microsoft.AspNetCore.Identity;
+
+
+
 namespace ShinyRockForum
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<ShinyRockForumContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShinyRockForumContext") ?? throw new InvalidOperationException("Connection string 'ShinyRockForumContext' not found.")));
@@ -30,16 +34,21 @@ namespace ShinyRockForum
             }
 
             app.UseHttpsRedirection();
+            //app.Use(async (context, next) =>
+            //{
+            //    Console.WriteLine($"Request Path: {context.Request.Path}");
+            //    await next();
+            //});
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            app.MapStaticAssets();
             app.MapRazorPages().WithStaticAssets();
 
             app.Run();

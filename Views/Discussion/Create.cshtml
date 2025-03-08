@@ -1,45 +1,41 @@
-﻿
-@model ShinyRockForum.Models.Discussion
+﻿@model ShinyRockForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
+<h1>Post something cool!</h1>
 
-<h4>Edit discussion</h4>
+<h4>What would you like to talk about?</h4>
 <hr />
 
 <div>
-    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="DiscussionId" />
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label asp-for="Title" class="control-label"></label>
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Content" class="control-label"></label>
-            <textarea asp-for="Content" class="form-control" rows="4" />
+            <textarea asp-for="Content" class="form-control" rows="4"></textarea>
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
-        <p>Change image:</p>
         <div class="form-group mb-3">
             <label asp-for="ImageFile" class="form-label"></label>
             <input type="file" asp-for="ImageFile" class="form-control" />
             <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Create" class="btn btn-primary m-2" />
         </div>
     </form>
 </div>
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

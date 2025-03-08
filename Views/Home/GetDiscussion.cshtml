@@ -8,6 +8,15 @@
     ViewData["Title"] = "Discussion";
     string imageUrl = Url.Content("/photos/" + @Model.ImageFilename);
     string userName = UserManager.FindByIdAsync(Model.ApplicationUserId).Result.UserName;
+    bool isOwner = false;
+    if (SignInManager.IsSignedIn(User))
+    {
+        var user = UserManager.GetUserAsync(User).Result;
+        if (Model.ApplicationUserId == user.Id)
+        {
+            isOwner = true;
+        }
+    }
 }
 
 <div class="card border-secondary mb-1 rounded-0">
@@ -32,6 +41,10 @@
     
     </div>        
     <a class="nav-link text-dark m-2" asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId">Reply</a>
+    @if(isOwner)
+    {
+    <a class="nav-link text-dark m-2" asp-controller="Discussion" asp-action="Edit" asp-route-id="@Model.DiscussionId">Edit</a>
+    }
 </div>
 @{
     foreach (var comment in Model.Comments)

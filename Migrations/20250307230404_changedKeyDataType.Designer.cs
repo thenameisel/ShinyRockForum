@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShinyRockForum.Data;
 
@@ -11,9 +12,11 @@ using ShinyRockForum.Data;
 namespace ShinyRockForum.Migrations
 {
     [DbContext(typeof(ShinyRockForumContext))]
-    partial class ShinyRockForumContextModelSnapshot : ModelSnapshot
+    [Migration("20250307230404_changedKeyDataType")]
+    partial class changedKeyDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,6 +170,9 @@ namespace ShinyRockForum.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,8 +252,10 @@ namespace ShinyRockForum.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
@@ -262,7 +270,7 @@ namespace ShinyRockForum.Migrations
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId1");
 
                     b.HasIndex("DiscussionId");
 
@@ -277,8 +285,10 @@ namespace ShinyRockForum.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscussionId"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
@@ -297,7 +307,7 @@ namespace ShinyRockForum.Migrations
 
                     b.HasKey("DiscussionId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId1");
 
                     b.ToTable("Discussion");
                 });
@@ -355,11 +365,9 @@ namespace ShinyRockForum.Migrations
 
             modelBuilder.Entity("ShinyRockForum.Models.Comment", b =>
                 {
-                    b.HasOne("ShinyRockForum.Data.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ShinyRockForum.Data.ApplicationUser", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId1");
 
                     b.HasOne("ShinyRockForum.Models.Discussion", "Discussion")
                         .WithMany("Comments")
@@ -367,20 +375,14 @@ namespace ShinyRockForum.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-
                     b.Navigation("Discussion");
                 });
 
             modelBuilder.Entity("ShinyRockForum.Models.Discussion", b =>
                 {
-                    b.HasOne("ShinyRockForum.Data.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ShinyRockForum.Data.ApplicationUser", null)
                         .WithMany("Discussions")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
+                        .HasForeignKey("ApplicationUserId1");
                 });
 
             modelBuilder.Entity("ShinyRockForum.Data.ApplicationUser", b =>

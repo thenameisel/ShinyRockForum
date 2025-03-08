@@ -10,29 +10,56 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShinyRockForum.Data;
 using ShinyRockForum.Models;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
+//NEW FILE WHY ITS WORKING BUT NOT....I DONT KNOW
 
 namespace ShinyRockForum.Controllers
 {
     [Authorize]
-    public class DiscussionsController : Controller
+    public class DiscussionController : Controller
     {
         private readonly ShinyRockForumContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DiscussionsController(ShinyRockForumContext context, UserManager<ApplicationUser> userManager)
+        public DiscussionController(ShinyRockForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-
         }
 
         //Removed discussions/details method
 
+        // GET: Discussions/Index
+        [Route("Discussions/Index")]
+        public async Task<IActionResult> Index()
+        {
+            string userID = _userManager.GetUserId(User);
+
+            Console.WriteLine("FETCHING ITEMS");
+
+            var discussions = await _context.Discussion
+                .Where(m => m.ApplicationUserId == userID)
+                .Include(d => d.Comments)
+                .OrderByDescending(d => d.CreateDate)
+                .ToListAsync();
+
+
+
+            Console.WriteLine("THERE ARE THESE MANY ITEMS" + discussions.Count);
+
+            return View(discussions);
+        }
 
         // GET: Discussions/Edit
         public async Task<IActionResult> Edit(int? id)
         {
+
+            Console.WriteLine("IN EDIT GET");
+
+
+
             if (id == null)
             {
                 return NotFound();
@@ -72,7 +99,7 @@ namespace ShinyRockForum.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 _context.Update(discussion);
                 await _context.SaveChangesAsync();
 
@@ -84,7 +111,7 @@ namespace ShinyRockForum.Controllers
                         await discussion.ImageFile.CopyToAsync(fileStream);
                     }
                 }
-                               
+
                 return RedirectToAction("Index", "Home");
             }
             return View(discussion);
@@ -133,28 +160,17 @@ namespace ShinyRockForum.Controllers
             }
 
             await _context.SaveChangesAsync();
-            
+
             return RedirectToAction("Index", "Home");
         }
 
 
 
-        // GET: Discussions/Index
-        public IActionResult Index()
-        {
-            string userID = _userManager.GetUserId(User);
-            var discussions = _context.Discussion
-                .Where(m => m.ApplicationUserId == userID)
-                .OrderByDescending(m => m.CreateDate)
-                .ToList();
-
-            return View(discussions);
-        }
 
         // GET: Discussions/Create
         public IActionResult Create()
         {
-            
+
             return View();
         }
 
@@ -167,7 +183,9 @@ namespace ShinyRockForum.Controllers
         {
             //set the create date to now
             discussion.CreateDate = DateTime.Now;
+
             discussion.ApplicationUserId = _userManager.GetUserId(User);
+            Console.WriteLine(discussion.ApplicationUserId);
 
             if (discussion.ImageFile != null)
             {
@@ -198,6 +216,6 @@ namespace ShinyRockForum.Controllers
             return View(discussion);
         }
 
-        
+
     }
 }

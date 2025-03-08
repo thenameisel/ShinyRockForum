@@ -9,8 +9,6 @@ namespace ShinyRockForum.Data
 {
     public class ApplicationUser : IdentityUser
     {
-        //ApplicationUserId
-        public int ApplicationUserId { get; set; }
 
         [Required(ErrorMessage = "A name is required.")]
         [PersonalData]

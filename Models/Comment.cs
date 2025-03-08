@@ -1,4 +1,6 @@
-﻿namespace ShinyRockForum.Models
+﻿using ShinyRockForum.Data;
+
+namespace ShinyRockForum.Models
 {
     public class Comment
     {
@@ -16,7 +18,10 @@
         // Navigation property back to Discussion
         public Discussion? Discussion { get; set; }
 
-        //creator forgein key
-        public string ApplicationUserId { get; set; }
+        // Foreign key for creator
+        public string ApplicationUserId { get; set; } = string.Empty;
+
+        // Navigation property
+        public ApplicationUser? ApplicationUser { get; set; } // nullable!!!
     }
 }

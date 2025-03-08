@@ -12,6 +12,7 @@
 <p class="text-center">Recent Posts!</p>
 
 @{
+
     foreach (var discussion in Model)
     {
         string userName = UserManager.FindByIdAsync(discussion.ApplicationUserId).Result.UserName;
