@@ -43,8 +43,14 @@ namespace ShinyRockForum.Controllers
         public async Task<IActionResult> Profile(string id)
         {
 
-            var user = await _userManager.FindByIdAsync(id);
-            
+            var user = await _userManager.FindByEmailAsync(id);
+            ICollection<Discussion> discussions = await _context.Discussion
+                .Where(d => d.ApplicationUserId == user.Id)
+                .Include(d => d.Comments.OrderByDescending(d => d.CreateDate))
+                .OrderByDescending(d => d.CreateDate)
+                .ToListAsync();
+            user.Discussions = discussions;
+
             return View(user);
         }
 

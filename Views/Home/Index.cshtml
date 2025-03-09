@@ -9,13 +9,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<p class="text-center">Recent Posts!</p>
+<p class="text-center fw-bolder">Recent Posts!</p>
 
 @{
 
     foreach (var discussion in Model)
     {
-        string userName = UserManager.FindByIdAsync(discussion.ApplicationUserId).Result.UserName;
+      
+        var user = UserManager.FindByIdAsync(discussion.ApplicationUserId).Result;
+        string userImageUrl = Url.Content("/profile_img/" + user.ImageFilename);
         string imageUrl = Url.Content($"/photos/{discussion.ImageFilename}");
 
         <div class="card border-secondary mb-3 rounded-0" style="m">
@@ -23,9 +25,19 @@
                 <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
             </div>
             <div class="card-body text-secondary row g-0">
+                <div class="d-block mb-2">
+                @if (!string.IsNullOrEmpty(user.ImageFilename))
+                {
+                    <img src="@userImageUrl" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
 
-                <p class="card-text">@userName : @discussion.CreateDate.ToString("MMM dd yyyy")</p>
-                    
+                }
+                else
+                {
+                    <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
+                }
+                <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@discussion.ApplicationUser">@user.Name</a> : @discussion.CreateDate.ToString("MMM dd yyyy")
+                </div>
+
                 @if (!string.IsNullOrEmpty(discussion.ImageFilename))
                 {
                     <div class="col-md-3 p-2">

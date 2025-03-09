@@ -213,7 +213,7 @@ namespace ShinyRockForum.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            else { Console.WriteLine("BANANA"); }
+            
 
             return View(discussion);
         }

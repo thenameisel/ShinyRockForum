@@ -12,10 +12,10 @@
     
     var userImage = Url.Content("/profile_img/" + Model.ImageFilename);
     
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <div class="row">
             <div class="col-md-4 text-center mb-4">
-                @if(Model.ImageFile == null){
+                @if(Model.ImageFilename == null){
                     <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px" />
                 }
                 else
@@ -63,4 +63,48 @@
 
         </div>
     </div>
+
+    <p class="text-center fw-bolder">@Model.Name's Posts!</p>
+
+    foreach (var discussion in Model.Discussions)
+    {
+        var user = UserManager.FindByIdAsync(discussion.ApplicationUserId).Result;
+        string userImageUrl = Url.Content("/profile_img/" + user.ImageFilename);
+        string imageUrl = Url.Content($"/photos/{discussion.ImageFilename}");
+
+        <div class="card border-secondary mb-3 rounded-0" style="m">
+            <div class="card-header">
+                <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">@discussion.Title</a>
+            </div>
+            <div class="card-body text-secondary row g-0">
+                <div class="d-block mb-2">
+                    @if (!string.IsNullOrEmpty(user.ImageFilename))
+                    {
+                        <img src="@userImageUrl" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
+
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
+                    }
+                    <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@discussion.ApplicationUser">@user.Name</a> : @discussion.CreateDate.ToString("MMM dd yyyy")
+                </div>
+
+                @if (!string.IsNullOrEmpty(discussion.ImageFilename))
+                {
+                    <div class="col-md-3 p-2">
+                        <img src="@imageUrl" class="img-fluid " alt="Image" />
+                    </div>
+                }
+
+                <div class="col-md-9 mb-2">
+                    <p class="card-text">@discussion.Content</p>
+                </div>
+
+                <div class="justify-content-end d-flex gap-2 mx-2">
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">Comments: @discussion.Comments.Count</a>
+                </div>
+            </div>
+        </div>
+    }
 }

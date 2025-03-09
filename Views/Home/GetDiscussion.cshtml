@@ -36,7 +36,7 @@
             {
                 <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
             }
-            @postOwner.Name : @Model.CreateDate.ToString("MMM dd yyyy")</p>
+            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@postOwner.UserName">@postOwner.Name</a> : @Model.CreateDate.ToString("MMM dd yyyy")</p>
 
         <div class="mb-2">
             <p class="card-text">@Model.Content</p>

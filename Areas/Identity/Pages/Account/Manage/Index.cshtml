@@ -9,12 +9,13 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 @{
-    string userID = UserManager.GetUserId(User);
+    
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <div class="d-flex justify-content-between mb-2">  
 <h3>@ViewData["Title"]</h3>
-    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@userID">View Profile</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@user.UserName">View Profile</a>
 </div>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
@@ -38,7 +39,7 @@
                 </div>
             @* Display and Change Photo *@
             @{
-                var user = await UserManager.GetUserAsync(User);
+                
                 string imageUrl = Url.Content("/profile_img/" + user.ImageFilename);
             }
             @if (!string.IsNullOrEmpty(user.ImageFilename))
