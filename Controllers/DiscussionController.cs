@@ -67,6 +67,7 @@ namespace ShinyRockForum.Controllers
 
             var userID = _userManager.GetUserId(User);
             var discussion = await _context.Discussion
+                .Include(d => d.Comments)
                 .Where(m => m.ApplicationUserId == userID)
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
 
@@ -127,6 +128,7 @@ namespace ShinyRockForum.Controllers
             var userID = _userManager.GetUserId(User);
 
             var discussion = await _context.Discussion
+                .Include(d => d.Comments)
                 .Where(m => m.ApplicationUserId == userID)
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
 

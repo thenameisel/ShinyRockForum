@@ -34,11 +34,11 @@ namespace ShinyRockForum
             }
 
             app.UseHttpsRedirection();
-            //app.Use(async (context, next) =>
-            //{
-            //    Console.WriteLine($"Request Path: {context.Request.Path}");
-            //    await next();
-            //});
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine($"Request Path: {context.Request.Path}");
+                await next();
+            });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

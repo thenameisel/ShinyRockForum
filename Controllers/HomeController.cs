@@ -40,6 +40,14 @@ namespace ShinyRockForum.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Profile(string id)
+        {
+
+            var user = await _userManager.FindByIdAsync(id);
+            
+            return View(user);
+        }
+
         public async Task<IActionResult> GetDiscussion(int? id)
         {
             if (id == null)

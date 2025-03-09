@@ -1,18 +1,24 @@
 ﻿@page
 @using ShinyRockForum.Data
 
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
+@{
+    string userID = UserManager.GetUserId(User);
+}
 
-    
+<div class="d-flex justify-content-between mb-2">  
 <h3>@ViewData["Title"]</h3>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Profile" asp-route-id="@userID">View Profile</a>
+</div>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
+    <div class="">
         <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             @* Display Email(cant change) *@
@@ -32,7 +38,7 @@
                 </div>
             @* Display and Change Photo *@
             @{
-                var user = await UserManager.GetUserAsync(Model.User);
+                var user = await UserManager.GetUserAsync(User);
                 string imageUrl = Url.Content("/profile_img/" + user.ImageFilename);
             }
             @if (!string.IsNullOrEmpty(user.ImageFilename))

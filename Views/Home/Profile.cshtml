@@ -1,0 +1,66 @@
+﻿@model ShinyRockForum.Data.ApplicationUser
+@using Microsoft.AspNetCore.Identity
+@using ShinyRockForum.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@{
+    
+    var userImage = Url.Content("/profile_img/" + Model.ImageFilename);
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                @if(Model.ImageFile == null){
+                    <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px" />
+                }
+                else
+                {
+                    <img src="@userImage" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;" />
+    
+                }
+            </div>
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@Model.Name</h4>
+                        <hr />
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong>Email:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                @Model.Email
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong>Location:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                @Model.Location
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong>Bio:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                @Model.Bio
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

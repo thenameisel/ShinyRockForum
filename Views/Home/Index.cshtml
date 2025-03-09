@@ -36,8 +36,10 @@
                 <div class ="col-md-9 mb-2">
                     <p class="card-text">@discussion.Content</p>
                 </div>
-                
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">Comments: @discussion.Comments.Count</a>
+
+                <div class="justify-content-end d-flex gap-2 mx-2">
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId">Comments: @discussion.Comments.Count</a>
+                </div>
             </div>
         </div>
     }

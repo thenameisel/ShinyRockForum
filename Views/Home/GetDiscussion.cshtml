@@ -7,12 +7,13 @@
 @{
     ViewData["Title"] = "Discussion";
     string imageUrl = Url.Content("/photos/" + @Model.ImageFilename);
-    string userName = UserManager.FindByIdAsync(Model.ApplicationUserId).Result.UserName;
+    var currentUser = UserManager.GetUserAsync(User).Result;
+    var postOwner = UserManager.FindByIdAsync(Model.ApplicationUserId).Result;
+    string postOwnerImageUrl = Url.Content("/profile_img/" + postOwner.ImageFilename);
     bool isOwner = false;
     if (SignInManager.IsSignedIn(User))
     {
-        var user = UserManager.GetUserAsync(User).Result;
-        if (Model.ApplicationUserId == user.Id)
+        if (Model.ApplicationUserId == currentUser.Id)
         {
             isOwner = true;
         }
@@ -21,11 +22,21 @@
 
 <div class="card border-secondary mb-1 rounded-0">
     <input type="hidden" asp-for="DiscussionId"/>
-    <div class="card-header">
-        <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Discussions" asp-action="Details" asp-route-id="@Model.DiscussionId">@Model.Title</a>
+    <div class="card-header fw-bold">
+        <a>@Model.Title</a>
     </div>
     <div class="card-body text-secondary">
-        <p class="card-text">@userName : @Model.CreateDate.ToString("MMM dd yyyy")</p>
+        <p class="card-text">
+            @if (!string.IsNullOrEmpty(postOwner.ImageFilename))
+            {
+                <img src="@postOwnerImageUrl" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
+
+            }
+            else
+            {
+                <img src="@Url.Content("/profile_img/generic.png")" alt="Profile Picture" class="rounded-circle" style="width: 24px; height: 24px;" />
+            }
+            @postOwner.Name : @Model.CreateDate.ToString("MMM dd yyyy")</p>
 
         <div class="mb-2">
             <p class="card-text">@Model.Content</p>
@@ -39,12 +50,16 @@
 
         <p class="card-text">Comments: @Model.Comments.Count</p>
     
-    </div>        
-    <a class="nav-link text-dark m-2" asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId">Reply</a>
-    @if(isOwner)
-    {
-    <a class="nav-link text-dark m-2" asp-controller="Discussion" asp-action="Edit" asp-route-id="@Model.DiscussionId">Edit</a>
-    }
+    </div>   
+    <div class="justify-content-end d-flex gap-2 mb-2 mx-2">
+        <a class="btn btn-primary" asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId">Reply</a>
+        @if(isOwner)
+        {
+            <a class="btn btn-warning" asp-controller="Discussion" asp-action="Edit" asp-route-id="@Model.DiscussionId">Edit</a>
+            <a class="btn btn-danger" asp-controller="Discussion" asp-action="Delete" asp-route-id="@Model.DiscussionId">Delete</a>
+        }
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back</a>
+    </div>
 </div>
 @{
     foreach (var comment in Model.Comments)
@@ -59,6 +74,4 @@
     }
 }
 
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to Home</a>
-</div>
+
